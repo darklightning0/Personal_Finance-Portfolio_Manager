@@ -6,10 +6,10 @@ import metrics as met
 import yfinance as yf
 
 #Visualization
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
-import seaborn as sns
+#import seaborn as sns
 import streamlit as st
 
 #Data and Calculations

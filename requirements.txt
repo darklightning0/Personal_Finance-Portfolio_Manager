@@ -1,0 +1,20 @@
+pip3 install datetime
+pip3 install streamlit
+pip3 install asyncio
+pip3 install os
+pip3 install requests
+pip3 install pandas
+pip3 install plotly
+pip3 install yfinance
+pip3 install python_weather
+pip3 install numpy
+pip3 install ta
+pip3 install datetime
+pip3 install datetime
+pip3 install datetime
+pip3 install datetime
+
+
+
+
+
