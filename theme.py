@@ -72,5 +72,24 @@ def custom_theme():
             font-weight: 800;
             letter-spacing: 1px;
         }
+        .stButton>button.buy-button {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            border: none;
+            padding: 10px 24px;
+            cursor: pointer;
+        }
+
+        .stButton>button.sell-button {
+            background-color: #F44336;
+            color: white;
+            font-weight: bold;
+        border-radius: 8px;
+            border: none;
+            padding: 10px 24px;
+            cursor: pointer;
+        }
         </style>
     """, unsafe_allow_html=True)

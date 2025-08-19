@@ -1,70 +1,9 @@
 
-import os   
-
-#Finance
 import yfinance as yf
-
-#Visualization
-import matplotlib.pyplot as plt
-import plotly.express as px
-import plotly.graph_objects as go
-import seaborn as sns
-import streamlit as st
-
-#Data and Calculations
-import numpy as np
 import ta
-from ta import trend, momentum, volatility, volume
 import pandas as pd
-import datetime as dt
 
-#MOVING AVERAGES
-'''
-Interpreting moving averages (MA, SMA, EMA) is a fundamental skill in technical analysis. While there are many specific strategies, the core interpretations are based on a few key concepts:
 
-1. Identifying Trend Direction
-This is the most basic and common use of a moving average.
-
-Uptrend: When the current price is above the moving average, it suggests an uptrend. The longer the price stays above the MA, the stronger the uptrend is considered to be.
-
-Downtrend: When the current price is below the moving average, it suggests a downtrend. Similarly, the longer the price stays below the MA, the stronger the downtrend.
-
-Example: A popular strategy uses the 50-day and 200-day moving averages. If a stock's price is above its 50-day MA, and the 50-day MA is above the 200-day MA, it is generally considered to be in a strong uptrend.
-
-2. Identifying Support and Resistance Levels
-Moving averages can act as dynamic support and resistance levels.
-
-Support: In an uptrend, a moving average can act as a support level, where the price may fall to before bouncing back up. Traders often look for buying opportunities when the price pulls back to a key MA (e.g., 50-day or 200-day) and then resumes its upward trend.
-
-Resistance: In a downtrend, a moving average can act as a resistance level, where the price may rise to before being pushed back down. Traders may look for selling opportunities when the price rallies to a key MA and then falls again.
-
-Example: A stock in an uptrend that pulls back and touches its 50-day SMA, then rises again, confirms the 50-day SMA as a support level.
-
-3. Crossover Signals
-This is a very popular and powerful way to use moving averages. It involves using two different MAs—a shorter-period one (e.g., 50-day) and a longer-period one (e.g., 200-day).
-
-Golden Cross (Bullish Signal): A bullish signal occurs when the shorter-term MA crosses above the longer-term MA. This suggests that momentum is shifting to the upside and a new uptrend may be starting.
-
-Death Cross (Bearish Signal): A bearish signal occurs when the shorter-term MA crosses below the longer-term MA. This suggests that momentum is shifting to the downside and a new downtrend may be starting.
-
-Example: When the 50-day EMA crosses above the 200-day EMA, it is often interpreted as a bullish signal for a sustained rally.
-
-4. Convergence and Divergence
-Convergence: When the price and the MA are moving closer together, it indicates that the current trend may be weakening.
-
-Divergence: When the price and the MA are moving farther apart, it indicates that the current trend is strengthening.
-
-5. Interpreting SMA vs. EMA
-The choice of SMA or EMA heavily influences the interpretation:
-
-SMA (Lagging): Because the SMA is slower to react, its signals are often more reliable and less prone to false starts. A crossover using SMAs is generally considered a stronger signal than one using EMAs, as it indicates a more sustained shift in the trend.
-
-EMA (Responsive): The EMA's quick response means it can give you an earlier signal of a potential trend change. However, you must be more cautious with EMA signals, as they can be triggered by short-term price noise and lead to false signals.
-
-Practical Application: Many traders use a combination of both. For instance, they might use a 200-day SMA to determine the long-term trend and a 12-day EMA and 26-day EMA to generate crossover signals for a shorter-term trading strategy.
-
-USE SMA FOR LONG-TERM TRENDS AND EMA FOR SHORT-TERM TRENDS
-'''
 
 def MA(df, period=20, ind_type=""):
 
@@ -218,5 +157,19 @@ def OBV(df, period=20):
         pd.Series: OBV values.
     """
     obv = ta.volume.on_balance_volume(df['Close'], df['Volume'])
+    print(obv.rolling(window=period).mean())
     return obv.rolling(window=period).mean()
+
+def SP500(period, interval):
+    data = yf.download(tickers="^GSPC", period=period, interval=interval, repair=True)
+    if isinstance(data.columns, pd.MultiIndex):
+        data.columns = data.columns.droplevel(1)  
+    return data["Close"].reset_index(drop=True) 
+        
+
+def NASDAQ(period, interval):
+    data = yf.download(tickers="^IXIC", period=period, interval=interval)
+    if isinstance(data.columns, pd.MultiIndex):
+        data.columns = data.columns.droplevel(1)
+    return data["Close"].reset_index(drop=True)
     
